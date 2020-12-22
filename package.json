@@ -1,0 +1,22 @@
+{
+  "name": "library-api",
+  "version": "1.0.0",
+  "description": "nodeJs library API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robert-mitola/library-api.git"
+  },
+  "author": "Robert Mitola",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robert-mitola/library-api/issues"
+  },
+  "homepage": "https://github.com/robert-mitola/library-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
