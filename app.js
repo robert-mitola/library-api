@@ -25,11 +25,15 @@ const isValidEmail = (email) => {
 // data store api
 const requestBook = (title, email) => {
   if (!isValidEmail(email)) {
-    return 'Please enter a valid email address.';
+    return {
+      error: 'Please enter a valid email address.',
+    };
   }
   const book = library.find(bookHasTitle(title));
   if (!book) {
-    return 'Sorry - that book is not registered in the library.';
+    return {
+      error: 'Sorry - that book is not registered in the library.',
+    };
   }
   const available = !requests.has(book);
   requests.add(book);
@@ -43,7 +47,9 @@ const requestBook = (title, email) => {
 const deleteRequest = (id) => {
   const book = library.find(bookHasId(id));
   if (!book) {
-    return 'That book is not registered in the library - no requests to delete.';
+    return {
+      warning: 'That book is not registered in the library - no requests to delete.',
+    };
   }
   requests.delete(book);
   return {};
@@ -55,10 +61,14 @@ const getRequest = (id) => {
   }
   const book = library.find(bookHasId(id));
   if (!book) {
-    return 'That book is not registered in the library, so there are no requests for it.';
+    return {
+      warning: 'That book is not registered in the library, so there are no requests for it.',
+    };
   }
   if (!requests.has(book)) {
-    return `No requests currently for book with id ${id}.`;
+    return {
+      warning: `No requests currently for book with id ${id}.`,
+    };
   }
   return book;
 };
@@ -78,7 +88,9 @@ app.post("/request", (req, res) => {
     title
   } = req.body || {};
   if (!email || !title) {
-    res.send('Error - Please specify both "email" and "title" fields in your request.');
+    res.send({
+      error: 'Please specify both "email" and "title" fields in your request.'
+    });
     return;
   }
   res.send(requestBook(title, email));
